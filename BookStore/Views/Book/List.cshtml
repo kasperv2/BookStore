@@ -1,0 +1,6 @@
+﻿@model BookListViewModel
+
+@foreach (Book book in @Model.Books)
+{
+    @Html.Partial("BookSummary", book)
+}

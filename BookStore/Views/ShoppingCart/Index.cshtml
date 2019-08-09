@@ -1,0 +1,58 @@
+﻿@model ShoppingCartViewModel
+
+<div class="row checkoutForm">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Selected amount</th>
+                <th>Book</th>
+                <th class="text-right">Price</th>
+                <th class="text-right">Subtotal</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var line in Model.ShoppingCart.ShoppingCartItems)
+            {
+                <tr>
+                    <td class="text-center">@line.Amount</td>
+                    <td class="text-left">@line.Book.Name</td>
+                    <td class="text-right">@line.Book.Price.ToString("c")</td>
+                    <td class="text-right">
+                        @((line.Amount * line.Book.Price).ToString("c"))
+                    </td>
+                    <td class="text-center"><a class="glyphicon glyphicon-remove text-danger remove" asp-controller="ShoppingCart" asp-action="RemoveFromShoppingCart" asp-route-drinkId="@line.Book.BookId"></a></td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="text-right">Total:</td>
+                <td class="text-right">
+                    @Model.ShoppingCartTotal.ToString("c")
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="text-right">
+        <div class="btn-group ">
+            
+            <a class="btn-group">
+                <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    Add more books<span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a asp-controller="Book" asp-action="List" asp-route-category="Fantasy">Фантастика</a></li>
+                    <li><a asp-controller="Book" asp-action="List" asp-route-category="Romance">Романтика</a></li>
+                    <li><a asp-controller="Home" asp-action="Index">All books</a></li>
+                </ul>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
